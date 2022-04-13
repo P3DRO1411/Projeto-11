@@ -1,64 +1,64 @@
-var path,boy, leftBoundary,rightBoundary;
-var pathImg,boyImg;
-var i;
+var menino
+var rua
+var rua_image
+var menino_image
+
 
 
 function preload(){
-pathImg = loadImage("path.png");
-boyImg = loadAnimation("Runner-1.png","Runner-2.png");
+  menino_image=loadAnimation("Runner-1.png","Runner-2.png")
+  rua_image=loadImage("path.png");
+
+
+
+
 }
+
 
 function setup(){
- createCanvas(400,400);
-// Movendo o fundo 
- path=createSprites(200,200,10,10);
- path.addImage("path",pathImg); 
- path.velocityY= 4;
- path.scale=1.2; 
-    
+  createCanvas(400,400);
+  rua=createSprite(200,200,10,10);
+  rua.addImage(rua_image);
+  rua.velocityY=3;
+  menino=createSprite(200,370,10,10);
+  menino.addAnimation("menino",menino_image);
+  menino.scale=0.05
+  edges=createEdgeSprites();
+}
 
-//Criando menino que corre 
-boy=createSprite(200,200,10,10);
-boy.addImage("menino",boyImg);
-
-
-// Criando Boundary (Limite) esquerdo  
-leftBoundary=createSprite(0,0,100,800);
-leftBoundary.visible = false;
-
-
-//Crie Boundary direito 
-rightBoundary=createSprite(400,0,100,800);
-rightBoundary.visible=false;
+function chao_se_mexe(){
+  if(rua.y>=400){
+    rua.y=400-height/2;
+  }
 }
 
 
-function draw() {
-  
-  background(0);
+
+function draw(){
+  background("white");
+  chao_se_mexe();
+  menino.x=mouseX;
+  menino.collide(edges);
 
 
 
-// Menino se movendo no eixo X com o mouse
-boy.x =World.mouseX;
 
-edges= createEdgeSprites();
-boy.collide(edges[3]);
-boy.collide(leftBoundary);
-boy.collide(rightBoundary);
 
- //Reiniciar o fundo
- if(path.x<0){
-  path.x=path.width/2;  
-    }
+  drawSprites();
+}
 
 
 
- drawSprites();
 
 
 
- }
+
+
+
+
+
+
+
 
 
 
